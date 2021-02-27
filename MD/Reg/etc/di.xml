@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="MD\Reg\Api\Data\FieldsInterface" type="MD\Reg\Model\Fields" />
+    <preference for="MD\Reg\Api\FieldsRepositoryInterface" type="MD\Reg\Model\FieldsRepository" />
+    <preference for="Magento\Customer\Controller\Account\CreatePost" type="MD\Reg\Controller\Account\CreatePost"/>
+    <virtualType name="FieldsGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">MD\Reg\Model\ResourceModel\Fields\Collection</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="reg_fields_listing_data_source" xsi:type="string">MD\Reg\Model\ResourceModel\Fields\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="MD\Reg\Model\ResourceModel\Fields\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">md_reg</argument>
+            <argument name="eventPrefix" xsi:type="string">md_reg_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">md_reg_collection</argument>
+            <argument name="resourceModel" xsi:type="string">MD\Reg\Model\ResourceModel\Fields</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\Model\Entity\RepositoryFactory">
+        <arguments>
+            <argument name="entities" xsi:type="array">
+                <item name="MD\Reg\Api\Data\FieldsInterface" xsi:type="string">MD\Reg\Api\FieldsRepositoryInterface</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

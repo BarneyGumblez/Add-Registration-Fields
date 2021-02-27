@@ -1,0 +1,53 @@
+<?php if($this->getConfigStatus() == '1' || $this->getConfigStatus() == 1):  ?>
+<div class="md-reg">
+    <?php $fields = $this->getListFields() ?>
+    <?php if($fields && count($fields)): ?>
+        <?php foreach($fields as $field):
+            $options = unserialize($field->getOptions());
+            $field_name = $field->getName();
+            ?>
+            <div class="md-reg-list">
+                <p>
+                    <b><?php echo $field->getName() ?>: </b> <br>
+                    <?php if($field->getType() == 'text'):
+                    ?>
+                <ul>
+                    <?php foreach ($options as $option) { ?>
+                        <li><?php echo $option['name_option']?></li>
+                    <?php }?>
+                </ul>
+                </p>
+                <p>
+                    <?php elseif($field->getType() == 'checkbox'):
+                    if(is_array($options)) {
+                        foreach ($options as $option){
+                            $option_name = $option['name_option'];
+                            ?>
+                            <label><input type="checkbox"  name="<?php echo 'md-reg-checkbox[' . $field_name . ' => ' .  $option_name . ']' ?>"> <?php echo $option_name ?></label>
+                    <?php }
+                    }?>
+                </p>
+                <?php
+                elseif($field->getType() == 'input'):
+                    ?>
+                    <input type="text" name="<?php echo 'md-reg-input[' . $field_name . ']' ?>">
+                <?php elseif($field->getType() == 'select'): ?>
+                    <select name=" <?php echo 'md-reg-select[' . $field_name . ']' ?>" id="md-reg-select">
+                        <?php
+                        if(is_array($options)):
+                            foreach ($options as $option){?>
+                                <option value="<?php echo $option['name_option']?>"><?php echo $option['name_option'] ?></option>
+                            <?php }
+                            endif;?>
+                    </select>
+                <?php
+                endif;
+                ?>
+            </div>
+        <?php
+        endforeach;
+    endif;
+    ?>
+</div>
+
+<?php endif; ?>

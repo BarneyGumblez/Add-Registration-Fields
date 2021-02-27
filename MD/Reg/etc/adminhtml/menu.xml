@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="MD_Reg::md" title="Registration fields" translate="title" module="MD_Reg" sortOrder="90" dependsOnModule="MD_Reg" resource="MD_Reg::md"/>
+        <add id="MD_Reg::reg" title="Registration fields" translate="title" module="MD_Reg" parent="MD_Reg::md" sortOrder="50" dependsOnModule="MD_Reg" resource="MD_Reg::reg"/>
+        <add id="MD_Reg::reg_fields" title="Field list" translate="title" module="MD_Reg" parent="MD_Reg::reg" sortOrder="10" dependsOnModule="MD_Reg" action="reg/fields" resource="MD_Reg::reg_fields"/>
+        <add id="MD_Reg::settings" title="Settings" translate="title" module="MD_Reg" parent="MD_Reg::md" sortOrder="60" dependsOnModule="MD_Reg" resource="MD_Reg::settings"/>
+        <add id="MD_Reg::reg_config" title="Configuration" translate="title" module="MD_Reg" parent="MD_Reg::settings" sortOrder="10" dependsOnModule="MD_Reg" action="adminhtml/system_config/edit/section/md_reg" resource="MD_Reg::reg_config"/>
+    </menu>
+</config>

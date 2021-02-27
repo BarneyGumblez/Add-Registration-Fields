@@ -1,0 +1,28 @@
+<div class="block block-dashboard-info">
+    <div class="block-title"><strong><?= $block->escapeHtml(__('Other Account Information')) ?></strong></div>
+    <div class="block-content">
+        <div class="box box-information">
+
+            <div class="box-content">
+                <?php foreach ($block->getOtherDataField() as $type => $element): ?>
+                    <?php foreach ($element as $ask => $answerlist) {?>
+                        <div><b><?= $ask ?></b></div>
+                        <?php if(is_array($answerlist)):
+                            // if is_array == true, $type == checkbox
+                            foreach ($answerlist as $answer) { ?>
+                                <label for="<?= $answer ?>"> <input type="checkbox" id="<?= $answer ?>" checked disabled><?= $answer ?></label>
+                                <br>
+
+                            <?php }
+                            else: echo $answerlist;
+                            ?>
+
+
+                    <?php endif; } ?>
+                <?php endforeach; ?>
+
+                <?= $block->getChildHtml('customer.account.dashboard.info.extra'); ?>
+            </div>
+        </div>
+    </div>
+</div>

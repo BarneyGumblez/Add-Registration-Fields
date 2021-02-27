@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">reg_fields_form.fields_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">News Information</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="save_and_continue" class="MD\Reg\Block\Adminhtml\Fields\Edit\SaveAndContinueButton"/>
+            <button name="save" class="MD\Reg\Block\Adminhtml\Fields\Edit\SaveButton"/>
+            <button name="reset" class="MD\Reg\Block\Adminhtml\Fields\Edit\ResetButton"/>
+            <button name="delete" class="MD\Reg\Block\Adminhtml\Fields\Edit\DeleteButton"/>
+            <button name="back" class="MD\Reg\Block\Adminhtml\Fields\Edit\BackButton"/>
+        </buttons>
+        <namespace>reg_fields_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>reg_fields_form.fields_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="fields_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="reg/fields/save"/>
+        </settings>
+        <dataProvider class="MD\Reg\Model\Fields\DataProvider" name="fields_form_data_source">
+            <settings>
+                <requestFieldName>field_id</requestFieldName>
+                <primaryFieldName>field_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="general">
+        <settings>
+            <label/>
+        </settings>
+        <field name="field_id" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">fields</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <visible>false</visible>
+                <dataScope>field_id</dataScope>
+            </settings>
+        </field>
+        <field name="status" sortOrder="10" formElement="checkbox">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">fields</item>
+                    <item name="default" xsi:type="number">1</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">Enable Field</label>
+                <dataScope>status</dataScope>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <field name="name" sortOrder="20" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">fields</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Field Name</label>
+                <dataScope>name</dataScope>
+            </settings>
+        </field>
+        <fieldset name="options_container" component="Magento_Catalog/js/components/visible-on-option/fieldset" sortOrder="40">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="multiselect" xsi:type="string">multiselect</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <collapsible>false</collapsible>
+                <additionalClasses>
+                    <class name="md-reg-dynamic-options">true</class>
+                </additionalClasses>
+                <label translate="true">Values</label>
+            </settings>
+            <dynamicRows name="options">
+                <settings>
+                    <addButtonLabel translate="true">Add Value</addButtonLabel>
+                    <additionalClasses>
+                        <class name="admin__field-wide">true</class>
+                    </additionalClasses>
+                    <componentType>dynamicRows</componentType>
+                </settings>
+                <container name="record" component="Magento_Ui/js/dynamic-rows/record">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="isTemplate" xsi:type="boolean">true</item>
+                            <item name="is_collection" xsi:type="boolean">true</item>
+                            <item name="componentType" xsi:type="string">container</item>
+                            <item name="positionProvider" xsi:type="string">attribute_options.position</item>
+                        </item>
+                    </argument>
+                    <field name="name_option" formElement="input">
+                        <argument name="data" xsi:type="array">
+                            <item name="config" xsi:type="array">
+                                <item name="source" xsi:type="string">fields</item>
+                            </item>
+                        </argument>
+                        <settings>
+                            <validation>
+                                <rule name="required-entry" xsi:type="boolean">true</rule>
+                            </validation>
+                            <dataType>text</dataType>
+                            <label translate="true">Option Name</label>
+                            <dataScope>name_option</dataScope>
+                        </settings>
+                    </field>
+                    <actionDelete>
+                        <argument name="data" xsi:type="array">
+                            <item name="config" xsi:type="array">
+                                <item name="componentType" xsi:type="string">actionDelete</item>
+                                <item name="dataType" xsi:type="string">text</item>
+                                <item name="fit" xsi:type="boolean">false</item>
+                                <item name="label" xsi:type="string">Actions</item>
+                                <item name="additionalClasses" xsi:type="string">data-grid-actions-cell</item>
+                                <item name="template" xsi:type="string">Magento_Backend/dynamic-rows/cells/action-delete</item>
+                            </item>
+                        </argument>
+                    </actionDelete>
+                </container>
+            </dynamicRows>
+        </fieldset>
+        <field name="type">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">MD\Reg\Model\Fields\Source\Types</item>
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">MD_Reg/js/form/element/is-special</item>
+                    <item name="elementTmpl" xsi:type="string">MD_Reg/form/element/is-special</item>
+                    <item name="label" xsi:type="string" translate="true">Type</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">number</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">item</item>
+                    <item name="dataScope" xsi:type="string">type</item>
+                    <item name="sortOrder" xsi:type="number">19</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+</form>
